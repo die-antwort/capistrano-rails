@@ -5,7 +5,7 @@ namespace :deploy do
   desc 'Runs rake db:migrate if migrations are set'
   task :migrate => [:set_rails_env] do
     on primary fetch(:migration_role) do
-      within release_path do
+      within release_path.join(fetch(:rails_dir)) do
         with rails_env: fetch(:rails_env) do
           execute :rake, "db:migrate"
         end
